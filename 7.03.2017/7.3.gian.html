@@ -1,0 +1,185 @@
+
+<html lang="en">
+<head>
+<title>width/height example</title>
+<style>
+div.cont1 {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+</style>
+
+<script type="text/javascript">
+var my_div = null;
+var newDiv = null;
+
+function init(){
+
+
+/*==================
+
+		main container 
+
+===================*/
+//<div id = "cont1Wrap">
+divcont1 = document.createElement("div");
+divcont1.id = "cont1Wrap";
+
+//<div class = "cont1">
+div1 = document.createElement("div");
+div1.className = "cont1";
+
+/*==================
+
+		air section
+
+===================*/
+//<section class = "air">
+sec1 = document.createElement("section");
+sec1.className  = "air";
+
+//<a href = "http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1" </a>
+href1 = document.createElement("a");
+href1.href ="http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1"
+
+
+//<span> Education Solution </span>
+span1 = document.createElement("span");
+span1.innerHTML="solution";
+
+
+iclass1 = document.createElement("i");
+iclass1.className  = "se01";
+
+p1 = document.createElement("p");
+p1.innerHTML="공항 출입국 관련 <br/> 최고의 솔루션을 제공합니다";
+
+href1.append(span1);
+href1.append(iclass1);
+href1.append(p1);
+sec1.append(href1);
+/*==================
+
+		edu section 
+
+===================*/
+//<section class = "air">
+sec2 = document.createElement("section");
+sec2.className  = "edu";
+
+//<a href = "http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1" </a>
+href2 = document.createElement("a");
+href2.href ="http://www.g-antech.com/contents/sub0201.php?category=02&code=board2&position=2"
+
+
+//<span> Education Solution </span>
+span2 = document.createElement("span");
+span2.innerHTML="Education Solution";
+
+
+iclass2 = document.createElement("i");
+iclass2.className  = "se02";
+
+p2 = document.createElement("p");
+p2.innerHTML="X-ray 및 영어 교육 <br/> 솔루션을 제공합니다";
+
+href2.append(span2);
+href2.append(iclass2);
+href2.append(p2);
+sec2.append(href2);
+
+/*==================
+
+		ito section 
+
+===================*/
+
+//<section class = "air">
+sec3 = document.createElement("section");
+sec3.className  = "ito";
+
+//<a href = "http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1" </a>
+href3 = document.createElement("a");
+href3.href ="http://www.g-antech.com/contents/sub0201.php?category=04&code=board5&position=4"
+
+
+//<span> Education Solution </span>
+span3 = document.createElement("span");
+span3.innerHTML="It Outsourcing";
+
+
+iclass3 = document.createElement("i");
+iclass3.className  = "se03";
+
+p3 = document.createElement("p");
+p3.innerHTML="각 분야별 전문인력을통한 <br/> 아웃소싱을 제공합니다 ";
+
+href3.append(span3);
+href3.append(iclass3);
+href3.append(p3);
+sec3.append(href3);
+
+/*==================
+
+		Green section 
+
+===================*/
+
+//<section class = "air">
+sec4 = document.createElement("section");
+sec4.className  = "green";
+
+//<a href = "http://www.g-antech.com/contents/sub0201.php?category=05&code=board9&position=5" </a>
+href4 = document.createElement("a");
+href4.href ="http://www.g-antech.com/contents/sub0201.php?category=04&code=board5&position=4"
+
+
+//<span> Education Solution </span>
+span4 = document.createElement("span");
+span4.innerHTML="It Outsourcing";
+
+
+iclass4 = document.createElement("i");
+iclass4.className  = "se04";
+
+p4 = document.createElement("p");
+p4.innerHTML="LED 조명  <br/> 특수조명 위한 LED솔루션을 제공합니다  ";
+
+href4.append(span4);
+href4.append(iclass4);
+href4.append(p4);
+sec4.append(href4);
+
+/*==================
+
+		final attach
+
+===================*/
+div1.append(sec1);
+divcont1.append(div1);
+
+div1.append(sec2);
+divcont1.append(div1);
+
+div1.append(sec3);
+divcont1.append(div1);
+
+div1.append(sec4);
+divcont1.append(div1);
+//var objOutput = document.getElementById("output");
+//objOutput.innerHTML = divcont1;
+
+
+
+body1 = document.getElementById("body1");
+body1.append(divcont1);
+
+}
+</script>
+</head>
+<body onload="init();" id="body1">
+</body>
+</html>
