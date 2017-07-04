@@ -1,0 +1,78 @@
+<html>
+<head>
+<head>
+<script type = "text/javascript">
+
+function checkEmpty(){
+	
+	if(document.getElementById('fname').value==""
+	|| document.getElementById('email').value ==""){
+		alert("empty")
+	}else{
+		document.getElementById('myform').action = "./server2.html"
+		document.person_info.submit();
+	}
+
+}
+function init(){
+
+/*=======
+	field 
+=========*/
+fieldset = document.createElement("fieldset");
+legend = document.createElement("legend");
+legend.innerHTML = "homework";
+fieldset.append(legend);
+/*=======
+	form 
+=========*/
+
+form1 = document.createElement('form');
+form1.action = "nothing";
+form1.name ="person_info";
+form1.method = "get";
+form1.id = "myform";
+
+
+
+/*=======
+	input 
+=========*/
+
+
+input1 = document.createElement('input');
+input1.type = "text";
+input1.id = "fname";
+input1.name = "Name";
+form1.innerHTML+= "Name: "
+form1.append(input1);
+form1.innerHTML += "<br/>";
+form1.innerHTML += "Email: ";
+
+input2 = document.createElement('input');
+input2.type = "text";
+input2.id = "email";
+input2.name = "email";
+form1.append(input2);
+
+/*=======
+	Button 
+=========*/
+
+form1.innerHTML+="<br/>";
+button1 = document.createElement('input');
+button1.type = "button";
+button1.value = "submit";
+button1.onclick = checkEmpty;
+//button1.addEventListener("click", checkEmpty, false);
+form1.append(button1);
+
+fieldset.append(form1);
+body1 = document.getElementById("body1");
+body1.append(fieldset);
+}
+</script>
+<body onload="init();" id = "body1">
+<big>Tue Jul 04 2017 16:53:33 GMT+0900 (대한민국 표준시)</big>
+</body>
+</html>
