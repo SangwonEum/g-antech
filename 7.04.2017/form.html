@@ -6,13 +6,15 @@
 <script type = "text/javascript">
 function checkEmpty()
 {
+	
 	//var myForm = document.getElementById('fname');
 	if(document.getElementById('fname').value==""
 	|| document.getElementById('email').value ==""){
-		alert('공백')
+		alert('공백');
 	}else{
-		document.getElementById('myform').action = "./server.html"
+		document.getElementById('myform').action = "./server2.html"
 		document.person_info.submit();
+		alert('공백아님');
 	}
 }
 
@@ -26,9 +28,10 @@ function checkEmpty()
 			Email: <input type = "text" id = "email" name = "email" ><br/>
 
 		
-
+		<input type="file" id = "input">
 		<input type="button" value="전송" onclick = "checkEmpty()">
-
+		
+	
 	
 	</fieldset>
 	</form>
