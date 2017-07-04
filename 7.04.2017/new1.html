@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<title>width/height example</title>
+<script type="text/javascript">
+var my_div = null;
+var newDiv = null;
+function init(){
+/*==================
+		main container 
+===================*/
+
+divcont1 = document.createElement("div");
+divcont1.id = "cont1Wrap";
+
+
+var input = "<div class ='cont1'>";
+
+/*==================
+		air section
+===================*/
+input+="<section class = 'air'>";
+input+="<a href = 'http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1'>";
+input+="<span> Airport Solution></span>";
+input+="<i class = 'se01'></i>";
+input+="<p> 공항 출입국 관련 <br/> 최고의 솔루션을 제공합니다</p>";
+input+="</a>";
+input+= "</section>"
+input+= "</div>"
+/*==================
+		edu section 
+===================*/
+input+="<section class = 'edu'>";
+input+="<a href = 'http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1'>";
+input+="<span> Education></span>";
+input+="<i class = 'se01'></i>";
+input+="<p> 교육제공 <br/> 최고의 솔루션을 제공합니다</p>";
+input+="</a>";
+input+= "</section>"
+input+= "</div>"
+
+/*==================
+		ito section 
+===================*/
+input+="<section class = 'ito'>";
+input+="<a href = 'http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1'>";
+input+="<span> ito></span>";
+input+="<i class = 'se01'></i>";
+input+="<p> ito <br/> 최고의 솔루션을 제공합니다</p>";
+input+="</a>";
+input+= "</section>"
+input+= "</div>"
+
+/*==================
+		Green section 
+===================*/
+
+input+="<section class = 'green'>";
+input+="<a href = 'http://g-antech.com/contents/sub0201.php?category=01&code=board1&position=1'>";
+input+="<span> ito></span>";
+input+="<i class = 'se01'></i>";
+input+="<p> green solution <br/> 최고의 솔루션을 제공합니다</p>";
+input+="</a>";
+input+= "</section>"
+input+= "</div>"
+
+/*==================
+		final attach
+===================*/
+divcont1.innerHTML = input;
+
+body1 = document.getElementById("body1");
+body1.append(divcont1);
+}
+</script>
+</head>
+<body onload="init();" id="body1">
+</body>
+</html>
