@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<h2 class="example">A heading with class="example"</h2>
+<p>A paragraph with class="example".</p> 
+
+<p>Click the button to add a background color to the first element in the document with class="example".</p>
+
+<button onclick="myFunction()">Try it</button>
+<script>
+/*
+	condition 
+*/
+var iceCream = 'chocolate';
+if(iceCream ==='chocolate'){
+	alert('yay');
+}else{
+	alert('no');
+}
+
+/*
+	create function
+*/
+function multiply(num1, num2){
+	var result = num1  * num2;
+	return result;
+
+}
+console.log(multiply(3,4));
+
+function myFunction() {
+    document.querySelector(".example").style.backgroundColor = "red";
+}
+
+
+<script>
+
+</body>
+</html>
