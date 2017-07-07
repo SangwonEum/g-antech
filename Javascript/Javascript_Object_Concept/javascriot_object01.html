@@ -1,0 +1,76 @@
+<html>
+<script>
+function Expresso(){
+	this.cost = 2500;
+	this.getCost = function(){
+		return this.cost;
+	}
+}
+/*
+
+	함수를 이용한 객체 생성 방법 
+
+*/
+
+
+let expresso  = new Expresso();
+console.log(expresso.getCost());
+//함수가 실행된 결과 값을 불러옴 
+
+
+
+//아마도 콜 백의 개념 함수자체를 불러 온다
+
+
+
+/*
+		객체 리터럴(Literal)를 이용한 방법 
+		
+		함수를 이용한 벙법처럼 객체 정의과 생성의 2단계를 거치지 않고 바로 객체를 생성하는방법 
+		리터럴로 정의 하면 인스턴트 생성 없이 바로 객체를 사용할수있다 이런 객체를 싱글톤 이라고 한다. 
+		싱글톤은 하나의 객체가 하나의 인스턴스를 가지는걸 의미한다 
+*/
+
+var arr = {};
+
+
+var expresso2 = {
+
+	cost: 2500,
+	getCost: function(){
+		return this.cost;
+	}
+
+};
+
+
+console.log(expresso2.getCost());
+
+
+/*
+
+	 함수와 리터럴의 조함을 이용한 방법
+
+*/
+
+ var expresso3 = new function Expresso3(){
+	this.cost = 250;
+	this.getCost = function(){
+	
+		return this.cost;
+	}
+ 
+ }
+
+
+
+
+
+</script>
+
+
+
+
+
+
+</html>
