@@ -55,7 +55,7 @@ public class login2 extends HttpServlet{
 			
 		}else{
 //			req.setAttribute("msg", "fail");
-			//dispatcher = req.getRequestDispatcher("login.jsp");
+			//
 			//dispatcher.forward(req, res);
 			//			JOptionPane.showMessageDialog(null, "아이디나 패스워드가 잘못되었습니다");
 			

@@ -3,8 +3,6 @@
 
 <% String s= (String)request.getParameter("msg");
    //request.removeAttribute("msg");
-
-
 %>
 
 <html>
@@ -13,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="POST" action="login" name="formname">
+	<form method="POST" action="insertChild" name="formname">
 
 		Login:<input type="text" name="login"><br /> password:<input
 			type="password" name="password"><br /> <input type="submit"
