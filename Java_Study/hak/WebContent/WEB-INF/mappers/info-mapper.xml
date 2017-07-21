@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="info">
+<select id="find" parameterType="java.lang.String" resultType="java.util.HashMap">
+		select * from join where eemail=#{email}
+</select>
+
+<select id="passcheckAjax" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+	select count(*) from join where id=#{id} and password=#{password}
+</select>
+
+
+<update id="change" parameterType="java.util.HashMap">
+	update join set id = #{id} , telenum = #{telenum}, password=#{password} where id=#{sid}
+</update>
+
+
+	
+</mapper>

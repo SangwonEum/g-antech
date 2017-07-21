@@ -17,13 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 import Bean.Student;
 import Database.DbUtil;
 
-@WebServlet("/read")
+@WebServlet("/readStu")
 public class ReadStudent extends HttpServlet {
-	
 	DbUtil db = new DbUtil();
-	List<Student> students  = new ArrayList<Student>();
+	List<Student> students  =null;
+	
 	RequestDispatcher dispatcher = null;
+	Connection con  = null;
+	ResultSet rs = null;
+	
 	public ReadStudent(){
+		
 		super();
 	}
 	
@@ -33,10 +37,12 @@ public class ReadStudent extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		try{
+			List<Student> students  = new ArrayList<Student>();
+			System.out.println(students.size());
 			System.out.println("reading...");
-			Connection con = db.Connect();
+			con = db.Connect();
 			String sql = "select * from student;";
-			ResultSet rs = con.createStatement().executeQuery(sql);
+			rs = con.createStatement().executeQuery(sql);
 			while(rs.next()){
 				Student s = new Student();
 				s.setId(rs.getInt("id"));
@@ -53,6 +59,7 @@ public class ReadStudent extends HttpServlet {
 		}finally{
 			try {
 				db.Disconnect();
+			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

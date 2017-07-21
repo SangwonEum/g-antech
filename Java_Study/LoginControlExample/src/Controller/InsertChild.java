@@ -33,6 +33,7 @@ public class InsertChild extends HttpServlet{
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		try{
+for(int i=1; i < 1000; i++){
 		
 		System.out.println("insertChild");
 		String name = req.getParameter("name");
@@ -53,17 +54,20 @@ public class InsertChild extends HttpServlet{
 		con = db.Connect();
 		Statement stmt =  con.createStatement();
 		PreparedStatement st = con.prepareStatement(sql);
-		st.setInt(1, Integer.parseInt(parentId));
-		st.setString(2, name);
+		st.setInt(1, Integer.parseInt(i+""));
+		st.setString(2, "kim"+i);
 		int rest= st.executeUpdate();
 		System.out.println("결과 값: "+ rest);
 		
+	}
 		
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			try {
 				db.Disconnect();
+				
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
