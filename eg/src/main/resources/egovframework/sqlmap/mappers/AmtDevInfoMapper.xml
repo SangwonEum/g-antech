@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.app.service.impl.AmtDevInfoMapper">
+    <sql id="where_list">
+        <if test='searchKeyword != null and searchKeyword != ""'>
+            AND (t.DEV_NM LIKE CONCAT('%', #{searchKeyword} ,'%') OR t.DEV_EMAIL LIKE CONCAT('%', #{searchKeyword} ,'%'))
+        </if>
+        <if test='devPhone != null and devPhone != ""'>
+            AND t.DEV_PHONE LIKE CONCAT('%', #{devPhone},'%')
+        </if>
+        <if test='devAddr != null and devAddr != ""'>
+            AND t.DEV_ADDR LIKE CONCAT('%', #{devAddr},'%')
+        </if>
+    </sql>
+
+    <select id="selectDevInfoList" parameterType="map" resultType="egovMap">
+        SELECT
+            DEV_NM
+            ,DEV_EMAIL
+            ,DEV_PHONE
+            ,DEV_ADDR
+            ,DEV_HOMEPY
+        FROM AMT_DEV_INFO t
+        WHERE 1=1
+        <include refid="where_list"/>
+    </select>
+</mapper>

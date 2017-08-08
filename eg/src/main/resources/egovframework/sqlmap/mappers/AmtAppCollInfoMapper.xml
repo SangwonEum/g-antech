@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.app.service.impl.AmtAppCollInfoMapper">
+
+    <sql id="where_list">
+        <if test='mkType != null and mkType != ""'>
+            AND t.MK_TYPE = #{mkType}
+        </if>
+        <if test='clasType != null and clasType != ""'>
+            AND t.CLAS_TYPE = #{clasType}
+        </if>
+        <if test='appUseGrade != null and appUseGrade != ""'>
+            AND t.APP_USE_GRADE = #{appUseGrade}
+        </if>
+        <if test='searchKeyword != null and searchKeyword != ""'>
+            AND (t.APP_NM LIKE CONCAT('%', #{searchKeyword} ,'%') OR t.APP_ID LIKE CONCAT('%', #{searchKeyword} ,'%'))
+        </if>
+        <if test='devNm != null and devNm != ""'>
+            AND t.DEV_NM LIKE CONCAT('%', #{devNm} ,'%')
+        </if>
+        <if test='devEmail != null and devEmail != ""'>
+            AND t.DEV_EMAIL LIKE CONCAT('%', #{devEmail} ,'%')
+        </if>
+        <if test='devPhone != null and devPhone != ""'>
+            AND t.DEV_PHONE LIKE CONCAT('%', #{devPhone} ,'%')
+        </if>
+        <if test='inptDtStart != null and inptDtStart != ""'>
+        <![CDATA[
+            AND t.INPT_DT >= STR_TO_DATE(CONCAT(${inptDtStart}, '000000'), '%Y%m%d%H%i%S')
+            AND t.INPT_DT <= STR_TO_DATE(CONCAT(${inptDtEnd}, '235959'), '%Y%m%d%H%i%S')
+        ]]>
+        </if>
+        <if test='appUpdDateStart != null and appUpdDateStart != ""'>
+        <![CDATA[
+            AND t.APP_UPD_DATE >= ${appUpdDateStart}
+            AND t.APP_UPD_DATE <= ${appUpdDateEnd}
+        ]]>
+        </if>
+    </sql>
+
+    <sql id="where_detail">
+        <if test='appSn != null and appSn != ""'>
+            AND t.APP_SN = #{appSn}
+        </if>
+    </sql>
+
+    <select id="selectAppCollInfoList" parameterType="SearchPageNavigationVO" resultType="egovMap">
+        SELECT
+            APP_SN
+            ,COLL_TYPE
+            ,BACTH_HISTORY_NO
+            ,MK_TYPE
+            ,CLAS_TYPE
+            ,APP_ID
+            ,APP_NM
+            ,COLL_URL
+            ,APP_PRICE
+            ,PRICE_UNIT
+            ,COLL_INFO_NM
+            ,APP_USE_GRADE
+            ,APP_SIZE
+            ,APP_VER
+            ,DATE_FORMAT(APP_UPD_DATE, "%Y%m%d") AS APP_UPD_DATE
+            ,DEV_NM
+            ,DEV_EMAIL
+            ,DEV_PHONE
+            ,DEV_ADDR
+            ,DEV_HOMEPY
+            ,APP_LEADER_IMG
+            ,NOTE
+            ,DATE_FORMAT(INPT_DT, "%Y%m%d") AS INPT_DT
+            ,INPT_ID
+            ,DATE_FORMAT(UPD_DT, "%Y%m%d") AS UPD_DT
+            ,UPD_ID
+            ,BIGO1
+            ,BIGO2
+        FROM AMT_APP_COLL_INFO t
+        WHERE 1=1
+        <include refid="where_list"/>
+        ORDER BY t.INPT_DT DESC
+        LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+    </select>
+
+    <select id="selectAppCollInfoOne" parameterType="SearchPageNavigationVO" resultType="AmtAppCollInfoVO">
+        SELECT *
+        FROM AMT_APP_COLL_INFO t
+        WHERE 1=1
+        <include refid="where_detail"/>
+    </select>
+
+
+    <select id="selectAppCollInfoListTotCnt" parameterType="SearchPageNavigationVO" resultType="int">
+        SELECT COUNT(1) as totcnt
+        FROM AMT_APP_COLL_INFO t
+        WHERE 1=1
+        <include refid="where_list"/>
+    </select>
+
+    <insert id="insertAppCollInfo" parameterType="AmtAppCollInfoVO" useGeneratedKeys="true" keyProperty="appSn">
+        INSERT INTO AMT_APP_COLL_INFO (
+            COLL_TYPE
+            ,COLL_DATE
+            ,BACTH_HISTORY_NO
+            ,MK_TYPE
+            ,CLAS_TYPE
+            ,APP_ID
+            ,APP_NM
+            ,COLL_URL
+            ,APP_PRICE
+            ,PRICE_UNIT
+            ,COLL_INFO_NM
+            ,APP_USE_GRADE
+            ,APP_SIZE
+            ,APP_VER
+            ,APP_UPD_DATE
+            ,DEV_NM
+            ,DEV_EMAIL
+            ,DEV_PHONE
+            ,DEV_ADDR
+            ,DEV_HOMEPY
+            ,APP_LEADER_IMG
+            ,NOTE
+            ,INPT_DT
+            ,INPT_ID
+            ,UPD_DT
+            ,UPD_ID
+        ) VALUES (
+            #{collType}
+            ,#{collDate}
+            ,#{bacthHistoryNo}
+            ,#{mkType}
+            ,#{clasType}
+            ,#{appId}
+            ,#{appNm}
+            ,#{collUrl}
+            ,#{appPrice}
+            ,#{priceUnit}
+            ,#{collInfoNm}
+            ,#{appUseGrade}
+            ,#{appSize}
+            ,#{appVer}
+            ,#{appUpdDate}
+            ,#{devNm}
+            ,#{devEmail}
+            ,#{devPhone}
+            ,#{devAddr}
+            ,#{devHomepy}
+            ,#{appLeaderImg}
+            ,#{note}
+            ,NOW()
+            ,#{inptId}
+            ,NOW()
+            ,#{updId}
+        );
+    </insert>
+
+</mapper>

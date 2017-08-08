@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+
+    <formset>
+
+        <form name="sampleVO">
+        	<field property="name" depends="required">
+        		<arg0 key="title.sample.name" />
+			</field>
+			<field property="description" depends="required">
+                <arg0 key="title.sample.description" />
+            </field>
+        	<field property="regUser" depends="required">
+        		<arg0 key="title.sample.regUser" />
+			</field>
+        </form>
+
+		<form name="loginForm">
+			<field property="j_username" depends="required,maxlength,email">
+				<arg0 key="사용자ID(메일주소)" />
+				<arg1 name="maxlength" key="50" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+			<field property="j_password" depends="required,maxlength">
+				<arg0 key="비밀번호" />
+				<arg1 name="maxlength" key="20" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="passwordCheckForm">
+			<field property="userId" depends="required,maxlength,email">
+				<arg0 key="사용자ID(메일주소)" />
+				<arg1 name="maxlength" key="50" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+			<field property="userNm" depends="required,maxlength,korean">
+				<arg0 key="사용자명" />
+				<arg1 name="maxlength" key="100" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="userPhone" depends="required,minlength,maxlength,mask">
+				<arg0 key="연락처" />
+				<arg1 name="minlength" key="8" resource="false" />
+				<arg1 name="maxlength" key="20" resource="false" />
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>8</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]*$</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="passwordChangeForm">
+			<field property="userPw" depends="required,maxlength">
+				<arg0 key="비밀번호" />
+				<arg1 name="maxlength" key="20" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+
+			<field property="userPwCheck" depends="required,maxlength">
+				<arg0 key="비밀번호 확인" />
+				<arg1 name="maxlength" key="20" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+		</form>
+
+		<form name="modelDevInfoForm">
+			<field property="searchKeyword" depends="minlength,maxlength">
+				<arg0 key="개발사명/이메일" />
+				<arg1 name="minlength" key="2" resource="false" />
+				<arg1 name="maxlength" key="50" resource="false" />
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>2</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+			<field property="devPhone" depends="minlength">
+				<arg0 key="연락처" />
+				<arg1 name="minlength" key="2" resource="false" />
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+			<field property="devAddr" depends="minlength">
+				<arg0 key="주소" />
+				<arg1 name="minlength" key="2" resource="false" />
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>2</var-value>
+				</var>
+			</field>
+		</form>
+
+    </formset>
+
+</form-validation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<!-- http://www.mybatis.org/mybatis-3/ko/configuration.html // -->
+		<setting name="autoMappingBehavior" value="FULL" /><!-- 마이바티스가 
+			칼럼을 필드/프로퍼티에 자동으로 매핑할지와 방법에 대해 명시. PARTIAL은 간단한 자동매핑만 할뿐 내포된 결과에 대해서는 처리하지 
+			않는다. FULL은 처리가능한 모든 자동매핑을 처리한다. // -->
+		<setting name="mapUnderscoreToCamelCase" value="true" /> <!-- 전통적인 데이터베이스 칼럼명 형태인 A_COLUMN을 CamelCase형태의 자바 프로퍼티명 형태인 aColumn으로 자동으로 
+			매핑하도록 함 // -->
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="egovMap"
+			type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+		<package name="kr.or.moiba.ammt" />
+	</typeAliases>
+</configuration>

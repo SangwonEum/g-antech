@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.app.service.impl.AmtAppMonitResltMapper">
+
+    <sql id="where_list">
+        <if test='appSn != null and appSn != ""'>
+            AND t.APP_SN = #{appSn}
+        </if>
+    </sql>
+
+    <select id="selectAppMonitResltList" parameterType="SearchPageNavigationVO" resultType="egovMap">
+        SELECT
+            APP_MONIT_SN
+            ,APP_SN
+            ,MONIT_STAT
+            ,DIRECTOR_ID
+            ,PAYM_METHD
+            ,FOCNT_DEV_YN
+            ,RESLT_REG_DT
+            ,MAIL_SEND_YN
+            ,LAST_MAIL_SEND_DT
+            ,DISPS_RESLT_CONTS
+            ,NOTE
+        FROM AMT_APP_MONIT_RESLT t
+        WHERE 1=1
+        <include refid="where_list"/>
+        ORDER BY t.INPT_DT DESC
+    </select>
+
+    <sql id="where_one">
+        <if test='appMonitSn != null and appMonitSn != ""'>
+            AND t.APP_MONIT_SN = #{appMonitSn}
+        </if>
+    </sql>
+
+    <select id="selectAppMonitResltOne" parameterType="SearchPageNavigationVO" resultType="AmtAppMonitResltVO">
+        SELECT
+            APP_MONIT_SN
+            ,APP_SN
+            ,MONIT_STAT
+            ,DIRECTOR_ID
+            ,PAYM_METHD
+            ,FOCNT_DEV_YN
+            ,RESLT_REG_DT
+            ,MAIL_SEND_YN
+            ,LAST_MAIL_SEND_DT
+            ,DISPS_RESLT_CONTS
+            ,NOTE
+        FROM AMT_APP_MONIT_RESLT t
+        WHERE 1=1
+        <include refid="where_list"/>
+        ORDER BY t.INPT_DT DESC
+    </select>
+
+    <insert id="insertAppMonitReslt" parameterType="AmtAppMonitResltVO" keyProperty="appMonitSn">
+        INSERT INTO AMT_APP_MONIT_RESLT (
+            APP_SN
+            ,MONIT_STAT
+            ,DIRECTOR_ID
+            ,PAYM_METHD
+            ,FOCNT_DEV_YN
+            ,RESLT_REG_DT
+            ,MAIL_SEND_YN
+            ,LAST_MAIL_SEND_DT
+            ,DISPS_RESLT_CONTS
+            ,NOTE
+            ,INPT_DT
+            ,INPT_ID
+            ,UPD_DT
+            ,UPD_ID
+        ) VALUES (
+            #{appSn}
+            ,#{monitStat}
+            ,#{directorId}
+            ,#{paymMethd}
+            ,#{focntDevYn}
+            ,#{resltRegDt}
+            ,#{mailSendYn}
+            ,#{lastMailSendDt}
+            ,#{dispsResltConts}
+            ,#{note}
+            ,NOW()
+            ,#{inptId}
+            ,NOW()
+            ,#{updId}
+        );
+    </insert>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.app.service.impl.AmtViolHisMapper">
+
+
+    <sql id="where_list">
+        <if test='appSn != null and appSn != ""'>
+            AND t.APP_SN = #{appSn}
+        </if>
+    </sql>
+
+    <select id="selectViolHisList" parameterType="SearchPageNavigationVO" resultType="AmtViolHisVO">
+        SELECT
+            APP_SN
+            ,VIOL_CLAUS_CD
+            ,VIOL_CLAUS_NM
+            ,INPT_DT
+            ,INPT_ID
+        FROM AMT_VIOL_HIS t
+        WHERE 1=1
+        <include refid="where_list"/>
+        ORDER BY INPT_DT ASC
+    </select>
+
+    <insert id="insertViolHis" parameterType="AmtViolHisVO">
+        INSERT INTO AMT_VIOL_HIS (
+            APP_SN
+            ,VIOL_CLAUS_CD
+            ,VIOL_CLAUS_NM
+            ,INPT_DT
+            ,INPT_ID
+        ) VALUES (
+            #{appSn}
+            ,#{violClausCd}
+            ,#{violClausNm}
+            ,NOW()
+            ,#{inptId}
+        );
+    </insert>
+</mapper>

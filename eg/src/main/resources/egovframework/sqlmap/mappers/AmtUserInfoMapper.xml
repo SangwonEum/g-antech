@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.management.service.impl.AmtUserInfoMapper">
+
+
+    <sql id="where_list">
+        <if test='useYn != null and useYn != ""'>
+            AND t.USE_YN = #{useYn}
+        </if>
+    </sql>
+
+    <sql id="where_one">
+        <if test='useYn != null and useYn != ""'>
+            AND t.USE_YN = #{useYn}
+        </if>
+        <if test='userId != null and userId != ""'>
+            AND t.USER_ID = #{userId}
+        </if>
+        <if test='userNm!= null and userNm != ""'>
+            AND t.USER_NM = #{userNm}
+        </if>
+        <if test='userPhone != null and userPhone != ""'>
+            AND t.USER_PHONE = #{userPhone}
+        </if>
+    </sql>
+
+    <select id="selectUserInfoList" parameterType="SearchPageNavigationVO" resultType="AmtUserInfoVO">
+        SELECT
+            USER_SN
+            ,USER_ID
+            ,USER_NM
+            ,USER_PW
+            ,AUTH_SN
+            ,USER_PHONE
+            ,USE_YN
+            ,INPT_DT
+            ,INPT_ID
+            ,UPD_DT
+            ,UPD_ID
+        FROM AMT_USER_INFO t
+        WHERE 1=1
+        <include refid="where_list"/>
+        ORDER BY INPT_DT ASC
+    </select>
+
+    <select id="selectUserInfoOne" parameterType="SearchPageNavigationVO" resultType="AmtUserInfoVO">
+        SELECT
+        USER_SN
+        ,USER_ID
+        ,USER_NM
+        ,USER_PW
+        ,AUTH_SN
+        ,USER_PHONE
+        ,USE_YN
+        ,INPT_DT
+        ,INPT_ID
+        ,UPD_DT
+        ,UPD_ID
+        FROM AMT_USER_INFO t
+        WHERE 1=1
+        <include refid="where_one"/>
+    </select>
+
+    <insert id="insertUserInfo" parameterType="AmtUserInfoVO">
+        INSERT INTO AMT_USER_INFO (
+            USER_ID
+            ,USER_NM
+            ,USER_PW
+            ,AUTH_SN
+            ,USER_PHONE
+            ,USE_YN
+            ,INPT_DT
+            ,INPT_ID
+            ,UPD_DT
+            ,UPD_ID
+        ) VALUES (
+            #{userId}
+            ,#{userNm}
+            ,#{userPw}
+            ,#{authSn}
+            ,#{userPhone}
+            ,#{useYn}
+            ,NOW()
+            ,#{inptId}
+            ,NOW()
+            ,#{updId}
+        );
+    </insert>
+    
+    <update id="updateUserInfoPassword" parameterType="AmtUserInfoVO">
+      UPDATE AMT_USER_INFO SET
+          USER_PW = #{userPw}
+      WHERE USER_ID = #{userId}
+    </update>
+</mapper>

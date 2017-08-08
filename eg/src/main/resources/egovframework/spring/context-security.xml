@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:egov-security="http://www.egovframe.go.kr/schema/egov-security"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.egovframe.go.kr/schema/egov-security http://www.egovframe.go.kr/schema/egov-security/egov-security-3.0.xsd">
+
+    <security:http pattern="/css/**" security="none"/>
+    <security:http pattern="/html/**" security="none"/>
+    <security:http pattern="/images/**" security="none"/>
+    <security:http pattern="/js/**" security="none"/>
+    <security:http pattern="/resource/**" security="none"/>
+    <security:http pattern="\A/WEB-INF/views/.*\Z" request-matcher="regex" security="none"/>
+
+    <egov-security:config id="securityConfig"
+                          loginUrl="/security/login.do"
+                          logoutSuccessUrl="/"
+                          loginFailureUrl="/security/login.do?error=1"
+                          accessDeniedUrl="/security/accessDenied.do"
+                          dataSource="dataSource"
+                          jdbcUsersByUsernameQuery="
+SELECT
+	t.USER_ID,
+	t.USER_NM,
+	t.USER_PW AS PASSWORD,
+	t.USE_YN AS ENABLED,
+	t1.AUTH_NM AS AUTHOR_CODE
+FROM AMT_USER_INFO t, AMT_AUTH_TYPE_MST t1
+WHERE t.AUTH_SN = t1.AUTH_SN
+AND t.USER_ID = ?
+"
+                          jdbcAuthoritiesByUsernameQuery="
+SELECT
+	t.USER_ID,
+	t1.AUTH_NM AS AUTHORITY
+FROM AMT_USER_INFO t, AMT_AUTH_TYPE_MST t1
+WHERE t.AUTH_SN = t1.AUTH_SN
+AND t.USER_ID = ?"
+                          jdbcMapClass="kr.or.moiba.ammt.common.service.EgovSessionMapping"
+                          requestMatcherType="regex"
+                          hash="bcrypt"
+                          hashBase64="false"
+                          concurrentMaxSessons="10"
+                          concurrentExpiredUrl="/security/concurrentExpired.do"
+                          defaultTargetUrl="/security/loginSuccess.do"
+    />
+
+    <egov-security:secured-object-config id="securedObjectConfig"
+                                         roleHierarchyString="ROLE_ADMIN > ROLE_USER"
+                                         sqlRolesAndUrl="
+SELECT
+	t.AUTH_NM AS authority,
+	t2.FILE_NM AS URL
+FROM
+	AMT_AUTH_TYPE_MST t,
+	AMT_AUTH_TYPE_MENU_INFO t1,
+	AMT_MENU_INFO t2
+WHERE
+	1 = 1
+AND t.AUTH_SN = t1.AUTH_SN
+AND t1.MENU_ID = t2.MENU_ID
+AND t.USE_YN = 1
+AND t2.USE_YN = 1
+"/>
+
+    <egov-security:initializer id="initializer"
+                               supportPointcut="false"
+                               supportMethod="false"
+    />
+</beans>

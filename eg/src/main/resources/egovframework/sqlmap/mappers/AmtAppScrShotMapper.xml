@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.app.service.impl.AmtAppScrShotMapper">
+
+
+	<sql id="where_list">
+		<if test='delYn != null and delYn != ""'>
+			AND t.DEL_YN = #{delYn}
+		</if>
+		<if test='appSn != null and appSn != ""'>
+			AND t.APP_SN = #{appSn}
+		</if>
+	</sql>
+
+	<select id="selectAppSrcShotList" parameterType="SearchPageNavigationVO" resultType="AmtAppScrShotVO">
+		SELECT
+			SCR_SHOT_SN
+			,APP_SN
+			,APP_MONIT_SN
+			,ATCH_FILE_LOCT
+			,ORG_FILE_NM
+			,FILE_F_EXT
+			,SAVE_FILE_NM
+			,DEL_YN
+			,DEL_DT
+			,DEL_ID
+			,INPT_DT
+			,INPT_ID
+		FROM AMT_APP_SCR_SHOT t
+		WHERE 1=1
+		<include refid="where_list"/>
+	  	ORDER BY INPT_DT ASC
+	</select>
+
+	<insert id="insertAppScrShot" parameterType="AmtAppScrShotVO">
+		INSERT INTO AMT_APP_SCR_SHOT (
+			APP_SN
+			,APP_MONIT_SN
+			,ATCH_FILE_LOCT
+			,ORG_FILE_NM
+			,FILE_F_EXT
+			,SAVE_FILE_NM
+			,INPT_DT
+			,INPT_ID
+		) VALUES(
+			#{appSn}
+			,#{appMonitSn}
+			,#{atchFileLoct}
+			,#{orgFileNm}
+			,#{fileFExt}
+			,#{saveFileNm}
+			,NOW()
+			,#{inptId}
+		);
+	</insert>
+
+</mapper>

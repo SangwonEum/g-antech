@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.moiba.ammt.board.service.impl.AmtBrdTblMapper">
+
+	<!-- 보드 리스트 가져오기 -->
+	<select id="selectBrdTblList" parameterType="SearchPageNavigationBoardVO"
+		resultType="egovMap">
+
+		SELECT
+		M.BRD_SN,
+		M.BRD_TYPE,
+		M.BRD_TITLE,
+		M.BRD_CONTS,
+		M.VIEW_CNT,
+		DATE_FORMAT(M.INPT_DT,'%Y-%m-%d') as INPT_DT,
+		M.INPT_ID,
+		U.USER_NM
+		FROM AMT_BRD_TBL M
+		, AMT_USER_INFO U
+		WHERE 1=1
+		AND M.BRD_TYPE =
+		'20'
+		AND M.DEL_YN = 0
+		AND M.INPT_ID = U.USER_ID
+		ORDER BY M.BRD_SN DESC
+		LIMIT
+		#{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+
+	<!-- 보드의 전체 수 -->
+	<select id="selectBrdTblTotCnt" parameterType="SearchPageNavigationBoardVO"
+		resultType="int">
+		SELECT COUNT(1) as totcnt
+		FROM AMT_BRD_TBL M
+		, AMT_USER_INFO
+		U
+		WHERE 1=1
+		AND M.BRD_TYPE = '20'
+		AND M.DEL_YN = 0
+		AND M.INPT_ID =
+		U.USER_ID
+		ORDER BY M.BRD_SN DESC
+	</select>
+	<!-- 하나의 정보 불러오기 -->
+	<select id="selectBrdTblInfoOne" parameterType="java.util.Map"
+		resultType="egovMap">
+		SELECT
+		M.BRD_SN,
+		M.BRD_TITLE,
+		M.BRD_CONTS,
+		M.VIEW_CNT,
+		DATE_FORMAT(M.UPD_DT,'%Y-%m-%d') as
+		UPD_DT,
+		M.UPD_ID,
+		U.USER_NM
+		FROM
+		AMT_BRD_TBL M
+		, AMT_USER_INFO U
+		WHERE 1=1
+		AND M.DEL_YN = 0
+		AND M.UPD_ID =
+		U.USER_ID
+		AND M.BRD_SN = #{brdSn}
+
+	</select>
+	<!-- 보드 정보 서치 -->
+	<select id="selectBrdTblSearch" parameterType="SearchPageNavigationBoardVO"
+		resultType="egovMap">
+
+
+
+		SELECT
+		M.BRD_SN,
+		M.BRD_TYPE,
+		M.BRD_TITLE,
+		M.BRD_CONTS,
+		M.VIEW_CNT,
+		DATE_FORMAT(M.UPD_DT,'%Y-%m-%d') as INPT_DT,
+		M.INPT_ID,
+		U.USER_NM
+		FROM AMT_BRD_TBL M
+		, AMT_USER_INFO U
+		WHERE 1=1
+		AND M.BRD_TYPE =
+		'20'
+		AND M.DEL_YN = 0
+		AND
+		M.INPT_ID = U.USER_ID
+		AND ( M.BRD_TITLE LIKE
+		CONCAT('%',#{
+		searchKeyword},'%') OR M.BRD_CONTS LIKE CONCAT
+		('%',#{
+		searchKeyword},'%') )
+		ORDER BY M.BRD_SN DESC
+		LIMIT
+		#{recordCountPerPage}
+		OFFSET #{firstIndex}
+
+
+
+	</select>
+
+	<!-- 저장 -->
+
+	<insert id="insertBrdTblInfo" parameterType="AmtBrdTblVO">
+		INSERT INTO ammt.AMT_BRD_TBL(
+		BRD_TYPE
+		,BRD_TITLE
+		,BRD_CONTS
+		,VIEW_CNT
+		,DEL_YN
+
+		,INPT_DT
+		,INPT_ID
+		,UPD_DT
+		,UPD_ID
+		) VALUES (
+		'20'
+		,#{brdTitle}
+		,#{brdConts}
+		,0
+		,0
+
+		,NOW()
+		,#{inptId}
+		<!-- ,'temp2' -->
+		,NOW()
+		,#{inptId}
+		);
+	</insert>
+
+	<!-- 첨부 파일 저장 -->
+
+	<insert id="insertBrdAtchFileInfo" parameterType="AmtBrdAtchFileVO">
+	INSERT INTO
+	ammt.AMT_BRD_ATCH_FILE
+	(
+	BRD_SN,
+	ATCH_FILE_LOCT,
+	ORG_FILE_NM,
+	FILE_F_EXT,
+	SAVE_FILE_NM,
+	DEL_YN, INPT_DT,
+	INPT_ID, UPD_DT,
+	UPD_ID)
+	VALUES (
+	
+	'예시 게시판 번호 : 1100000'
+	, '파일저장위치'
+	, '원본파일명'
+	, '확장자'
+	, '서버에 저장 파일명'
+	, 0 ,NOW()
+	, '아이디'
+	, NOW(),
+	'new'
+	);
+	</insert>
+
+</mapper>

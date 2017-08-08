@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+        <property name="algorithm" value="PBEWithMD5AndDES"/>
+        <property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD"/>
+    </bean>
+
+    <bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+        <property name="config" ref="environmentVariablesConfiguration"/>
+        <property name="password" value="whdydtjrakstp"/>
+    </bean>
+
+    <bean id="propertyConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+        <constructor-arg ref="configurationEncryptor"/>
+        <property name="locations">
+            <list>
+                <value>classpath:/egovframework/properties/jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Mysql hikari connection pool -->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP"/>
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="jdbcUrl" value="${jdbcs.mariaDB.url}"/>
+        <property name="username" value="${jdbcs.mariaDB.user}"/>
+        <property name="password" value="${jdbcs.mariaDB.pwd}"/>
+        <property name="connectionTimeout" value="${jdbcs.mariaDB.connectionTimeout}"/>
+        <property name="maxLifetime" value="${jdbcs.mariaDB.maxLifetime}"/>
+        <property name="maximumPoolSize" value="${jdbcs.mariaDB.maximumPoolSize}"/>
+        <property name="minimumIdle" value="${jdbcs.mariaDB.minimumIdle}"/>
+        <property name="idleTimeout" value="${jdbcs.mariaDB.idleTimeout}"/>
+        <property name="autoCommit" value="false"/>
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">400</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+                <prop key="useServerPrepStmts">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+</beans>
